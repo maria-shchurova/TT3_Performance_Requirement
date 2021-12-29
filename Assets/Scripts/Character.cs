@@ -51,4 +51,9 @@ public class Character : MonoBehaviour
 		float moveBy = MovementVector * speed;  
 	    rb.velocity = new Vector2(moveBy, rb.velocity.y); 
 	}
+
+	void Death()
+    {
+
+    }
 }

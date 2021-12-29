@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class PlayerCharacter : Character
 {
-    [SerializeField]
-    private float jumpForce;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private Transform groundCheck;
     private bool isJumping;
+    private bool aboveEnemy;
+
+
+
     protected override void Start()
     {
         base.Start();
@@ -16,6 +20,7 @@ public class PlayerCharacter : Character
         MovementVector = Input.GetAxisRaw("Horizontal");
         Jump();
         Sprint();
+        DetectCollisions();
     }
 
     void Jump()
@@ -38,12 +43,22 @@ public class PlayerCharacter : Character
             speed /= 2;
         }
     }
-
-    void OnCollisionEnter2D(Collision2D other)
+    void DetectCollisions()
     {
-        if (other.gameObject.CompareTag("Ground"))
-        {
+        RaycastHit2D hitRay = Physics2D.Raycast(groundCheck.position, Vector2.down);
+
+        if (hitRay.collider.CompareTag("Enemy"))
+            aboveEnemy = true;
+        else
+            aboveEnemy = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
             isJumping = false;
-        }
+
+        if (collision.gameObject.CompareTag("Enemy") && aboveEnemy)
+            Destroy(collision.gameObject); //TODO add crush animation and call method Death() on enemy
     }
 }
