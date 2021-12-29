@@ -58,7 +58,7 @@ public class PlayerCharacter : Character
         if (collision.gameObject.CompareTag("Ground"))
             isJumping = false;
 
-        if (collision.gameObject.CompareTag("Enemy") && aboveEnemy)
+        if (collision.gameObject.CompareTag("Enemy_A") && aboveEnemy)
             Destroy(collision.gameObject); //TODO add crush animation and call method Death() on enemy
     }
 }
