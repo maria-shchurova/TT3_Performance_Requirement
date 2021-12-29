@@ -15,6 +15,7 @@ public class PlayerCharacter : Character
         base.Update();
         MovementVector = Input.GetAxisRaw("Horizontal");
         Jump();
+        Sprint();
     }
 
     void Jump()
@@ -23,6 +24,18 @@ public class PlayerCharacter : Character
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isJumping = true;
+        }
+    }
+
+    void Sprint()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            speed *= 2;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            speed /= 2;
         }
     }
 
