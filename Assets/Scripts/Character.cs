@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 //parent class for all characters
 public class Character : MonoBehaviour 
