@@ -1384,9 +1384,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1895773142776608092, guid: 13ae13968aeca2c49b53fe405bd46bd7, type: 3}
+      propertyPath: jumpForce
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1895773142776608092, guid: 13ae13968aeca2c49b53fe405bd46bd7, type: 3}
       propertyPath: healthDisplay
       value: 
       objectReference: {fileID: 550908499}
+    - target: {fileID: 1895773142776608093, guid: 13ae13968aeca2c49b53fe405bd46bd7, type: 3}
+      propertyPath: m_GravityScale
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1895773142776608095, guid: 13ae13968aeca2c49b53fe405bd46bd7, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
