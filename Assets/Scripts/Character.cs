@@ -2,7 +2,8 @@ using UnityEngine;
 //parent class for all characters
 public class Character : MonoBehaviour 
 {
-    private int _healthPoints;
+	protected Animator animationController;
+	private int _healthPoints = 1; //at least 1 
 
 	public int HealthPoints
 	{
@@ -13,23 +14,13 @@ public class Character : MonoBehaviour
 		set
 		{
 			_healthPoints = value;
-
+			if (value == 0)
+				Death();
 		}
 	}
 
 	private bool _isAlive;
 
-	public bool IsAlive
-	{
-		get
-		{
-			return _isAlive;
-		}
-		set
-		{
-			_isAlive = value;
-		}
-	}
 	protected Rigidbody2D rb; 
 	[SerializeField]
 	protected float speed;
@@ -38,7 +29,8 @@ public class Character : MonoBehaviour
 	                                 * for enemies - determined by code(-1 for one who moves left constantly)*/
 	protected virtual void Start() 
 	{ 
-    	rb = GetComponent<Rigidbody2D>(); 
+    	rb = GetComponent<Rigidbody2D>();
+		animationController = GetComponent<Animator>();
 	}
 
 	protected virtual void Update()
@@ -59,10 +51,11 @@ public class Character : MonoBehaviour
 		transform.Translate(new Vector2 (moveBy, 0) * speed * Time.deltaTime);
 	}
 
-	void Death()
+	public void Death()
     {
-
-    }
+		animationController.SetTrigger("Death");
+		Destroy(gameObject, 1);
+	}
 
 	protected float timeElapsed;
 	[SerializeField]	private float attackCooldown;
@@ -77,7 +70,7 @@ public class Character : MonoBehaviour
             {
 				if(CanAttack)
                 {
-					collision.gameObject.GetComponent<Character>().HealthPoints -= 1;
+					collision.gameObject.GetComponent<Character>().HealthPoints -= 1; //TODO make a melee attack for player?
 					CanAttack = false;
 					timeElapsed = 0;
 				}

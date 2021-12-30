@@ -4,7 +4,6 @@ public class PlayerCharacter : Character
 {
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private Animator animationController;
     private bool isJumping;
     private bool aboveEnemy;
     private float currentAttack;
@@ -13,7 +12,6 @@ public class PlayerCharacter : Character
     {
         base.Start();
         HealthPoints = 10;
-        animationController = GetComponent<Animator>();
     }
 
     protected override void Update()
@@ -92,7 +90,7 @@ public class PlayerCharacter : Character
 
         if(hitRay == true)
         {
-            if (hitRay.collider.CompareTag("Enemy"))
+            if (hitRay.collider.CompareTag("Enemy_A"))
                 aboveEnemy = true;
             else
                 aboveEnemy = false;
@@ -102,10 +100,10 @@ public class PlayerCharacter : Character
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
             isJumping = false;
 
         if (collision.gameObject.CompareTag("Enemy_A") && aboveEnemy)
-            Destroy(collision.gameObject); //TODO add crush animation and call method Death() on enemy
+            collision.gameObject.GetComponent<Character>().Death();
     }
 }
