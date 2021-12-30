@@ -44,16 +44,44 @@ public class Character : MonoBehaviour
 	protected virtual void Update()
     {
 		Move();
+
+		timeElapsed += Time.deltaTime; //waiting until next attack
+		if (timeElapsed >= attackCooldown)
+		{
+			CanAttack = true;
+		}
+
 	}
 
 	void Move() 
 	{
-		float moveBy = MovementVector * speed;  
-	    rb.velocity = new Vector2(moveBy, rb.velocity.y); 
+		float moveBy = MovementVector * speed;
+		transform.Translate(new Vector2 (moveBy, 0) * speed * Time.deltaTime);
 	}
 
 	void Death()
     {
 
     }
+
+	protected float timeElapsed;
+	[SerializeField]	private float attackCooldown;
+
+	private bool CanAttack = true;
+
+	private void OnCollisionStay2D(Collision2D collision)
+	{
+		if (!this.gameObject.CompareTag("Player")) //if this is any enemy (NOT player character)
+		{
+			if(collision.gameObject.CompareTag("Player")) //and he touches the player character
+            {
+				if(CanAttack)
+                {
+					collision.gameObject.GetComponent<Character>().HealthPoints -= 1;
+					CanAttack = false;
+					timeElapsed = 0;
+				}
+			}				
+		}
+	}
 }

@@ -9,9 +9,8 @@ public class Enemy_type_B : Character
 
     protected override void Update()
     {
-        //base.Update();
-        // MovementVector = 1; //initially moving right
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        base.Update();
+         MovementVector = 1; //initially moving right
 
         RaycastHit2D groungHit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.5f);
         RaycastHit2D sideHit = Physics2D.Raycast(groundCheck.position, Vector2.right, 0.5f);

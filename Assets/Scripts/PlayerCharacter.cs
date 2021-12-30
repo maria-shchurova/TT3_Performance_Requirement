@@ -7,11 +7,10 @@ public class PlayerCharacter : Character
     private bool isJumping;
     private bool aboveEnemy;
 
-
-
     protected override void Start()
     {
         base.Start();
+        HealthPoints = 10;
     }
 
     protected override void Update()
