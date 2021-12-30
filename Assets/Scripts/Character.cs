@@ -57,7 +57,7 @@ public class Character : MonoBehaviour
 		transform.Translate(new Vector2 (moveBy, 0) * speed * Time.deltaTime);
 	}
 
-	public void Death()
+	public virtual void Death()
     {
 		speed = 0;
 		animationController.SetTrigger("Death");

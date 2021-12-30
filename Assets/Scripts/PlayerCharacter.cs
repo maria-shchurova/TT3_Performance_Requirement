@@ -114,4 +114,10 @@ public class PlayerCharacter : Character
     {
         healthDisplay.RemoveHP(); 
     }
+
+    public override void Death()
+    {
+        base.Death();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name); //restart current scene
+    }
 }
