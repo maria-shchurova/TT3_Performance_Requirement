@@ -7,7 +7,10 @@ public class NextLevel : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //load next scene by its index in Build Settings
+            if(SceneManager.GetActiveScene().buildIndex < 4) //if it is not the last level
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //load next scene by its index in Build Settings
+            else
+                SceneManager.LoadScene("CreditsScene");
         }
         
     }
