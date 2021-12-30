@@ -67,7 +67,7 @@ public class Character : MonoBehaviour
 	protected float timeElapsed;
 	[SerializeField]	private float attackCooldown;
 
-	private bool CanAttack = true;
+	protected bool CanAttack = true;
 
 	private void OnCollisionStay2D(Collision2D collision)
 	{

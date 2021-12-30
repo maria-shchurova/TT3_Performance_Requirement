@@ -4,13 +4,16 @@ public class PlayerCharacter : Character
 {
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Animator animationController;
     private bool isJumping;
     private bool aboveEnemy;
+    private float currentAttack;
 
     protected override void Start()
     {
         base.Start();
         HealthPoints = 10;
+        animationController = GetComponent<Animator>();
     }
 
     protected override void Update()
@@ -19,14 +22,54 @@ public class PlayerCharacter : Character
         MovementVector = Input.GetAxisRaw("Horizontal");
         Jump();
         Sprint();
+        Animate();
         DetectCollisions();
     }
 
+    void Animate()
+    {
+        // Swap direction of sprite depending on walk direction
+        if (Input.GetAxisRaw("Horizontal") > 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        else if (Input.GetAxisRaw("Horizontal") < 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+
+        //Run animation
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > Mathf.Epsilon)
+        {
+            animationController.SetInteger("AnimState", 1);
+        }
+        else
+            animationController.SetInteger("AnimState", 0);
+
+        //Attack
+        if (Input.GetMouseButtonDown(0) && CanAttack)
+        {
+            currentAttack++;
+
+            // Loop back to one after third attack
+            if (currentAttack > 3)
+                currentAttack = 1;
+
+            // Call one of three attack animations "Attack1", "Attack2", "Attack3"
+            animationController.SetTrigger("Attack" + currentAttack);
+
+            // Reset timer
+            CanAttack = false;
+            timeElapsed = 0;
+        }
+    }
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            animationController.SetTrigger("Jump");
             isJumping = true;
         }
     }
@@ -35,6 +78,7 @@ public class PlayerCharacter : Character
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            animationController.SetTrigger("Roll");
             speed *= 2;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -46,10 +90,14 @@ public class PlayerCharacter : Character
     {
         RaycastHit2D hitRay = Physics2D.Raycast(groundCheck.position, Vector2.down);
 
-        if (hitRay.collider.CompareTag("Enemy"))
-            aboveEnemy = true;
-        else
-            aboveEnemy = false;
+        if(hitRay == true)
+        {
+            if (hitRay.collider.CompareTag("Enemy"))
+                aboveEnemy = true;
+            else
+                aboveEnemy = false;
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
