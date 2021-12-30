@@ -12,7 +12,7 @@ public class PlayerCharacter : Character
     protected override void Start()
     {
         base.Start();
-        HealthPoints = 10;
+        HealthPoints = 3;
     }
 
     protected override void Update()
