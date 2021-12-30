@@ -12,7 +12,7 @@ public class PlayerCharacter : Character
     protected override void Start()
     {
         base.Start();
-        HealthPoints = 3;
+        HealthPoints = 5;
         healthDisplay.AddHP(HealthPoints);
     }
 
@@ -80,11 +80,11 @@ public class PlayerCharacter : Character
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             animationController.SetTrigger("Roll");
-            speed *= 2;
+            speed *= 1.5f;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            speed /= 2;
+            speed /= 1.5f;
         }
     }
     void DetectCollisions()

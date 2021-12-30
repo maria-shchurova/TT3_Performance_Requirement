@@ -59,6 +59,7 @@ public class Character : MonoBehaviour
 
 	public void Death()
     {
+		speed = 0;
 		animationController.SetTrigger("Death");
 		Destroy(gameObject, 1);
 	}
