@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerCharacter : Character
@@ -62,6 +63,7 @@ public class PlayerCharacter : Character
             timeElapsed = 0;
         }
     }
+
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
