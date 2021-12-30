@@ -3,7 +3,7 @@ using UnityEngine;
 public class Character : MonoBehaviour 
 {
 	protected Animator animationController;
-	private int _healthPoints = 10;
+	private int _healthPoints = 3;
 	[SerializeField]private GameObject attackedCharacter;
 	public int HealthPoints
 	{
@@ -13,9 +13,12 @@ public class Character : MonoBehaviour
 		}
 		set
 		{
-			_healthPoints = value;
+			if (value < _healthPoints)
+			{
+				animationController.SetTrigger("Hurt"); //every time HP is decrasing
+			}
 
-			animationController.SetTrigger("Hurt"); //every time HP changes (wich usually means it is decrasing)
+			_healthPoints = value;
 
 			if (value == 0)
 				Death();

@@ -1,10 +1,10 @@
-using System;
 using UnityEngine;
 
 public class PlayerCharacter : Character
 {
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private HealthDisplay healthDisplay;
     private bool isJumping;
     private bool aboveEnemy;
     private float currentAttack;
@@ -13,6 +13,7 @@ public class PlayerCharacter : Character
     {
         base.Start();
         HealthPoints = 3;
+        healthDisplay.AddHP(HealthPoints);
     }
 
     protected override void Update()
@@ -107,5 +108,10 @@ public class PlayerCharacter : Character
 
         if (collision.gameObject.CompareTag("Enemy_A") && aboveEnemy)
             collision.gameObject.GetComponent<Character>().Death();
+    }
+
+    public void PlayerTakeHit() //this is being triggered by Unity Animation Event during TakeHit animation( https://docs.unity3d.com/Manual/script-AnimationWindowEvent.html)
+    {
+        healthDisplay.RemoveHP(); 
     }
 }
