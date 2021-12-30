@@ -4,7 +4,6 @@ public class Character : MonoBehaviour
 {
 	protected Animator animationController;
 	private int _healthPoints = 1; //at least 1 
-
 	public int HealthPoints
 	{
 		get
@@ -24,6 +23,7 @@ public class Character : MonoBehaviour
 	protected Rigidbody2D rb; 
 	[SerializeField]
 	protected float speed;
+	private float initialSpeed;
 
 	protected float MovementVector; /*ranges from -1 to 1. for PlayerCharacter it is taken from horizontal axis input, 
 	                                 * for enemies - determined by code(-1 for one who moves left constantly)*/
@@ -31,6 +31,7 @@ public class Character : MonoBehaviour
 	{ 
     	rb = GetComponent<Rigidbody2D>();
 		animationController = GetComponent<Animator>();
+		initialSpeed = speed; //i have to save this in order to set speed from 0 to initioal one after attacking player
 	}
 
 	protected virtual void Update()
@@ -46,7 +47,7 @@ public class Character : MonoBehaviour
 	}
 
 	void Move() 
-	{
+	{		
 		float moveBy = MovementVector * speed;
 		transform.Translate(new Vector2 (moveBy, 0) * speed * Time.deltaTime);
 	}
@@ -64,17 +65,31 @@ public class Character : MonoBehaviour
 
 	private void OnCollisionStay2D(Collision2D collision)
 	{
-		if (!this.gameObject.CompareTag("Player")) //if this is any enemy (NOT player character)
+		if (!this.gameObject.CompareTag("Player")) //if this is NOT player character
 		{
 			if(collision.gameObject.CompareTag("Player")) //and he touches the player character
             {
-				if(CanAttack)
+				speed = 0; //movements stops in order not to push player back
+				animationController.SetTrigger("Idle"); //looks better than walking without movement
+				if (CanAttack)
                 {
+					animationController.SetTrigger("Attack");
 					collision.gameObject.GetComponent<Character>().HealthPoints -= 1; //TODO make a melee attack for player?
 					CanAttack = false;
 					timeElapsed = 0;
 				}
 			}				
+		}
+	}
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+		if (!this.gameObject.CompareTag("Player")) //if this is NOT player character
+		{
+			if (collision.gameObject.CompareTag("Player")) //and he touches the player character
+			{
+				speed = initialSpeed;
+			}
 		}
 	}
 }
