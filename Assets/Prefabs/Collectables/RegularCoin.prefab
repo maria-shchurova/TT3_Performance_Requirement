@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3643606809874220947
+--- !u!1 &6815774096591989922
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3643606809874220951}
-  - component: {fileID: 3643606809874220948}
-  - component: {fileID: 3643606809874220949}
-  - component: {fileID: 3643606809874220946}
+  - component: {fileID: 5100285487872814755}
+  - component: {fileID: 1780403372083455335}
+  - component: {fileID: 7862141061920918677}
+  - component: {fileID: 4851370724425029864}
   m_Layer: 0
-  m_Name: Coin
+  m_Name: RegularCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3643606809874220951
+--- !u!4 &5100285487872814755
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3643606809874220947}
+  m_GameObject: {fileID: 6815774096591989922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.23, y: -2.18, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
@@ -33,13 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3643606809874220948
+--- !u!212 &1780403372083455335
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3643606809874220947}
+  m_GameObject: {fileID: 6815774096591989922}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -84,26 +84,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3643606809874220949
+--- !u!114 &7862141061920918677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3643606809874220947}
+  m_GameObject: {fileID: 6815774096591989922}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef10d6a0227f2b54497c1a1a32cc0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectableType: Coin
---- !u!61 &3643606809874220946
+  _collectableType: RegularCoin
+--- !u!61 &4851370724425029864
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3643606809874220947}
+  m_GameObject: {fileID: 6815774096591989922}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}

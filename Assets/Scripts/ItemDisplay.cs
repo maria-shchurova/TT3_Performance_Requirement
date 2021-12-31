@@ -11,9 +11,14 @@ public class ItemDisplay : MonoBehaviour
     {
         switch (type)
         {
-            case "Coin":
+            case "RegularCoin":
                 CoinCount++;
-                CoinCountText.text = CoinCount.ToString();
+                break;
+            case "MediumCoin":
+                CoinCount += 5;
+                break;
+            case "LargeCoin":
+                CoinCount += 10;
                 break;
             case "UpgradeA":
                 UpgradeA.SetActive(true);
@@ -22,9 +27,10 @@ public class ItemDisplay : MonoBehaviour
                 UpgradeB.SetActive(true);
                 break;
             default:
-
                 break;
+
         }
+        CoinCountText.text = CoinCount.ToString();
     }
 }
 

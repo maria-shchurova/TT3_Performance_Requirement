@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    [SerializeField] private string collectableType; //"Coin", "UpgradeA" or "UpgradeB"
+    [SerializeField] private string _collectableType; //"Coin", "UpgradeA", "LargeCoin" etc
     private ItemDisplay display;
 
     private void Start()
@@ -15,7 +15,7 @@ public class Collectable : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            OnCollect(collectableType);
+            OnCollect(_collectableType);
             Destroy(gameObject);
         }
     }
