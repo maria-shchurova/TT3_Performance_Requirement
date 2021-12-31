@@ -91,10 +91,13 @@ public class PlayerCharacter : Character
     {
         RaycastHit2D hitRay = Physics2D.Raycast(groundCheck.position, Vector2.down);
 
-        if(hitRay == true)
+        if (hitRay == true)
         {
             if (hitRay.collider.CompareTag("Enemy_A"))
+            {
                 aboveEnemy = true;
+                //takeNoDamage = true;
+            } 
             else
                 aboveEnemy = false;
         }

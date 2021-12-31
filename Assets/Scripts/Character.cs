@@ -89,6 +89,12 @@ public class Character : MonoBehaviour
 		attackedCharacter = null;
 	}
 
+
+	public void Damage() //this is being triggered by Unity Animation Event during Attack animation( https://docs.unity3d.com/Manual/script-AnimationWindowEvent.html)
+	{
+		if (attackedCharacter)
+			attackedCharacter.GetComponent<Character>().HealthPoints -= 1;
+	}
 	void Attack()
     {
 		if (attackedCharacter)
@@ -99,7 +105,7 @@ public class Character : MonoBehaviour
 				if (CanAttack)
 				{
 					animationController.SetTrigger("Attack");
-					attackedCharacter.GetComponent<Character>().HealthPoints -= 1; //TODO make a melee attack for player?
+					//attackedCharacter.GetComponent<Character>().HealthPoints -= 1; 
 					CanAttack = false;
 					timeElapsed = 0;
 				}
