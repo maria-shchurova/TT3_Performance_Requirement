@@ -14,13 +14,33 @@ public class PlayerCharacter : Character
     public bool UpgradeA
     {
         get { return _upgradeA; }
-        set { _upgradeA = value; }
+        set 
+        { 
+            _upgradeA = value; 
+            if(_upgradeA)
+            {
+                transform.localScale *= 1.5f; //grows in size
+                HealthPoints += 1;            //gains a life
+                healthDisplay.AddHP(1);
+            }
+            else
+            {
+                transform.localScale /= 1.5f; //back to initial size
+            }
+        }
     }
     private bool _upgradeB = false;
     public bool UpgradeB
     {
         get { return _upgradeB; }
-        set { _upgradeB = value; }
+        set 
+        { 
+            _upgradeB = value;
+            //if(value == false)
+            //{
+
+            //}
+        }
     }
 
     [SerializeField] private GameObject FireballPrefab;
@@ -135,7 +155,12 @@ public class PlayerCharacter : Character
 
     public void PlayerTakeHit() //this is being triggered by Unity Animation Event during TakeHit animation( https://docs.unity3d.com/Manual/script-AnimationWindowEvent.html)
     {
-        healthDisplay.RemoveHP(); 
+        healthDisplay.RemoveHP();
+        if (UpgradeA)
+            UpgradeA = false; //after hit upgrade is lost
+
+        if (UpgradeB)
+            UpgradeB = false;
     }
 
     public override void Death()
@@ -153,4 +178,5 @@ public class PlayerCharacter : Character
             Instantiate(FireballPrefab, ProjectileSpawnPoint.position, transform.rotation);
         }
     }
+
 }
