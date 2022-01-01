@@ -8,6 +8,23 @@ public class PlayerCharacter : Character
     private bool isJumping;
     private bool aboveEnemy;
     private float currentAttack;
+/// //////////////////////////////
+/// </upgrade booleans>
+    private bool _upgradeA = false;
+    public bool UpgradeA
+    {
+        get { return _upgradeA; }
+        set { _upgradeA = value; }
+    }
+    private bool _upgradeB = false;
+    public bool UpgradeB
+    {
+        get { return _upgradeB; }
+        set { _upgradeB = value; }
+    }
+
+    [SerializeField] private GameObject FireballPrefab;
+
 
     protected override void Start()
     {
@@ -24,6 +41,9 @@ public class PlayerCharacter : Character
         Sprint();
         Animate();
         DetectCollisions();
+
+        if (UpgradeA)
+            ShootFireball();
     }
 
     void Animate()
@@ -122,5 +142,15 @@ public class PlayerCharacter : Character
     {
         base.Death();
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name); //restart current scene
+    }
+
+    [SerializeField]private Transform ProjectileSpawnPoint;
+    [SerializeField]private float launchVelocity;
+    void ShootFireball()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Instantiate(FireballPrefab, ProjectileSpawnPoint.position, transform.rotation);
+        }
     }
 }

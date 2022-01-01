@@ -7,6 +7,12 @@ public class ItemDisplay : MonoBehaviour
     [SerializeField] private Text CoinCountText;
     [SerializeField] private GameObject UpgradeA, UpgradeB;
 
+    private PlayerCharacter player;
+
+    private void Start()
+    {
+        player = FindObjectOfType<PlayerCharacter>();
+    }
     public void UpdateItems(string type)
     {
         switch (type)
@@ -22,9 +28,11 @@ public class ItemDisplay : MonoBehaviour
                 break;
             case "UpgradeA":
                 UpgradeA.SetActive(true);
+                player.UpgradeA = true;
                 break;
             case "UpgradeB":
                 UpgradeB.SetActive(true);
+                player.UpgradeB = true;
                 break;
             default:
                 break;

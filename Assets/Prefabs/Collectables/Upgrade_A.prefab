@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fdbe411b4ec35f147900865c997a312d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cebba6dd0d62794cbf3e2cbc5cbf1da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef10d6a0227f2b54497c1a1a32cc0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectableType: UpgradeA
+  _collectableType: UpgradeA
 --- !u!61 &9098705708442432421
 BoxCollider2D:
   m_ObjectHideFlags: 0
