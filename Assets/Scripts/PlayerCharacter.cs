@@ -5,6 +5,7 @@ public class PlayerCharacter : Character
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private HealthDisplay healthDisplay;
+    [SerializeField] private ItemDisplay itemDisplay;
     private bool isJumping;
     private bool aboveEnemy;
     private float currentAttack;
@@ -17,15 +18,16 @@ public class PlayerCharacter : Character
         set 
         { 
             _upgradeA = value; 
-            if(_upgradeA)
+            if(value == true)
             {
-                transform.localScale *= 1.5f; //grows in size
+                transform.localScale *= 1.2f; //grows in size
                 HealthPoints += 1;            //gains a life
                 healthDisplay.AddHP(1);
             }
             else
             {
-                transform.localScale /= 1.5f; //back to initial size
+                transform.localScale /= 1.2f; //back to initial size
+                itemDisplay.UpdateItems("UpdateA_Lost"); //remove item from UI
             }
         }
     }
@@ -36,14 +38,22 @@ public class PlayerCharacter : Character
         set 
         { 
             _upgradeB = value;
-            //if(value == false)
-            //{
-
-            //}
+            if (value == true)
+            {
+                transform.localScale *= 1.2f; //grows in size
+                HealthPoints += 1;            //gains a life
+                healthDisplay.AddHP(1);
+            }
+            else
+            {
+                transform.localScale /= 1.2f; //back to initial size
+                itemDisplay.UpdateItems("UpdateB_Lost"); //remove item from UI
+            }
         }
     }
 
-    [SerializeField] private GameObject FireballPrefab;
+    [SerializeField] private GameObject fireballPrefab;
+    [SerializeField] private GameObject damageAreaPrefab;
 
 
     protected override void Start()
@@ -51,6 +61,7 @@ public class PlayerCharacter : Character
         base.Start();
         HealthPoints = 5;
         healthDisplay.AddHP(HealthPoints);
+        itemDisplay = GameObject.FindObjectOfType<ItemDisplay>();
     }
 
     protected override void Update()
@@ -64,6 +75,9 @@ public class PlayerCharacter : Character
 
         if (UpgradeA)
             ShootFireball();
+
+        if (UpgradeB)
+            StompAttack();
     }
 
     void Animate()
@@ -146,12 +160,25 @@ public class PlayerCharacter : Character
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall") 
+            || collision.gameObject.CompareTag("Enemy_A") || collision.gameObject.CompareTag("Enemy_B"))
             isJumping = false;
 
         if (collision.gameObject.CompareTag("Enemy_A") && aboveEnemy)
             collision.gameObject.GetComponent<Character>().Death();
+
+        if (stompJump)
+        {
+            if (collision.gameObject.tag != "Ground")
+            {
+                //preventing getting stack on enemie's heads while stomp attack
+                if(collision.gameObject.GetComponent<BoxCollider2D>())
+                    Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>()); 
+            }
+
+        }
     }
+        
 
     public void PlayerTakeHit() //this is being triggered by Unity Animation Event during TakeHit animation( https://docs.unity3d.com/Manual/script-AnimationWindowEvent.html)
     {
@@ -175,8 +202,28 @@ public class PlayerCharacter : Character
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            Instantiate(FireballPrefab, ProjectileSpawnPoint.position, transform.rotation);
+            Instantiate(fireballPrefab, ProjectileSpawnPoint.position, transform.rotation);
         }
     }
 
+
+    [SerializeField] private bool stompJump = false;
+    [SerializeField] private float stompJumpSpeed = 85;
+    void StompAttack()
+    {
+        if(stompJump && !isJumping) //if attack started AND player finished the jump
+        {
+            Instantiate(damageAreaPrefab, transform.position, transform.rotation); //killing area appears
+            rb.gravityScale /= stompJumpSpeed; // goes back to initial
+            stompJump = false;
+        }
+        if (Input.GetKeyDown(KeyCode.F)) //F because player can have Upgrade A in the same time
+        {
+            if (isJumping)
+            {
+                rb.gravityScale *= stompJumpSpeed; //landing faster
+                stompJump = true; //attack is activated
+            }
+        }
+    }
 }
