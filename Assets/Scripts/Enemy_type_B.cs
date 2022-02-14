@@ -7,10 +7,15 @@ public class Enemy_type_B : Character
     private bool movingRight = true;
     [SerializeField] private Transform groundCheck;
 
+    protected override void Start()
+    {
+        base.Start();
+        HealthPoints = 15;
+        MovementVector = 1; //initially moving right
+    }
     protected override void Update()
     {
         base.Update();
-         MovementVector = 1; //initially moving right
 
         RaycastHit2D groungHit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.5f);
         RaycastHit2D sideHit = Physics2D.Raycast(groundCheck.position, Vector2.right, 0.5f);

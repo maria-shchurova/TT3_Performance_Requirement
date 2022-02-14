@@ -1,6 +1,8 @@
 using UnityEngine;
 //parent class for all characters
-public class Character : MonoBehaviour 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Animator))]
+public abstract class Character : MonoBehaviour 
 {
 	protected Animator animationController;
 	private int _healthPoints = 3;
