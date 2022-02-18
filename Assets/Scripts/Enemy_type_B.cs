@@ -7,6 +7,7 @@ public class Enemy_type_B : Character
     private bool movingRight = true;
     [SerializeField] private Transform groundCheck;
 
+
     protected override void Start()
     {
         base.Start();

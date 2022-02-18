@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyTrigger : MonoBehaviour
 {
-    [SerializeField] private Character[] enemiesToActivate;
+    [SerializeField] private Enemy_type_A[] enemiesToActivate;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            foreach(Character enemy in enemiesToActivate)
+            foreach(Enemy_type_A enemy in enemiesToActivate)
             {
-                enemy.enabled = true;
+                if(enemy != null)
+                    enemy.isWaiting = false;
             }
 
         }

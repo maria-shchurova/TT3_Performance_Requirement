@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Enemy_type_A : Character
 {
+    public bool isWaiting;
     protected override void Start()
     {
         base.Start();
@@ -10,8 +11,18 @@ public class Enemy_type_A : Character
 
     protected override void Update()
     {
-        base.Update();
-        MovementVector = 1; //constatly moving left, but it is flipped because of animation i used
+        if (isWaiting) //will switch by EnemyTrigger.cs
+            Wait();
+        else
+        {
+            base.Update();
+            MovementVector = 1; //constatly moving left, but it is flipped because of animation i used
+        }
     }
 
+    void Wait()
+    {
+        animationController.SetTrigger("Idle");
+        MovementVector = 0;
+    }
 }
