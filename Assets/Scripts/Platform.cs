@@ -5,20 +5,23 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     private PlatformEffector2D effector;
+    private PlayerCharacter player;
     private bool isPlayerOn;
     void Start()
     {
+        player = GameObject.FindObjectOfType<PlayerCharacter>();
         effector = GetComponent<PlatformEffector2D>();
     }
 
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        if(Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F) && player.UpgradeB == true) //F for stomp attack
+                                                                                                  //TODO add && if player.isJumping...
         {
             effector.rotationalOffset = 180;
         }
-        if (Input.GetKeyUp(KeyCode.S))
+        if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.F))
         {
             effector.rotationalOffset = 0;
         }
