@@ -13,8 +13,21 @@ public class Hints : MonoBehaviour //only for tutorial level
         if (collision.gameObject.name == "invisible wall")
         {
             hintText.text = "There is no way back!";
+            hintText.transform.localScale = new Vector3 (1.5f, 1.5f, 0); //because of a short text
             hintUI.SetActive(true);
-        }    
+        } 
+    }
+
+    private bool alreadyApproached = false;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "EnemyTrigger" && !alreadyApproached)
+        {
+            hintText.text = "The Shroom. He is strong, but a jump on his head kills him";
+            hintText.transform.localScale = new Vector3(1f, 1f, 0); //because of a long text TODO make a separate class for rescaling ui
+            hintUI.SetActive(true);
+            alreadyApproached = true; //to not show it again
+        }
     }
 
     private void Update()
