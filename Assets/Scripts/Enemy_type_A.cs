@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy_type_A : Character
 {
-    public bool isWaiting;
+    public bool isWaiting = true;
     protected override void Start()
     {
         base.Start();
@@ -16,6 +16,7 @@ public class Enemy_type_A : Character
         else
         {
             base.Update();
+            animationController.SetTrigger("Walk");
             MovementVector = 1; //constatly moving left, but it is flipped because of animation i used
         }
     }
