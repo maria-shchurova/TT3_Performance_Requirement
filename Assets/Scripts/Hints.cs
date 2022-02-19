@@ -28,6 +28,13 @@ public class Hints : MonoBehaviour //only for tutorial level
             hintUI.SetActive(true);
             alreadyApproached = true; //to not show it again
         }
+
+        if (collision.gameObject.name == "GoblinHint")
+        {
+            hintText.text = "A Goblin. I can slay it easy with my magic power";
+            hintText.transform.localScale = new Vector3(1f, 1f, 0); //because of a long text TODO make a separate class for rescaling ui
+            hintUI.SetActive(true);
+        }
     }
 
     private void Update()
