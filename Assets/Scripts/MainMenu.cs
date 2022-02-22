@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         PlayButton = GameObject.Find("Play");
         CreditsButton = GameObject.Find("Credits");
         QuitButton = GameObject.Find("Quit");

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCharacter : Character
 {
@@ -61,10 +62,15 @@ public class PlayerCharacter : Character
     protected override void Start()
     {
         base.Start();
-        HealthPoints = 5;
+        Cursor.lockState = CursorLockMode.Locked;
+        if (SceneManager.GetActiveScene().name != "Level_0") //is the level is not the first, HP are loaded from StatsKeeper
+            HealthPoints = StatsKeeper.HealthPointsCount;
+        else
+            HealthPoints = 5; //otherwise 5
         healthDisplay.AddHP(HealthPoints);
+
         itemDisplay = GameObject.FindObjectOfType<ItemDisplay>();
-    }
+;    }
 
     protected override void Update()
     {
