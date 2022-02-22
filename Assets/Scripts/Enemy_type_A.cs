@@ -16,8 +16,9 @@ public class Enemy_type_A : Character
         else
         {
             base.Update();
-            animationController.SetTrigger("Walk");
-            MovementVector = 1; //constatly moving left, but it is flipped because of animation i used
+            if(HealthPoints > 0) //wal only if not dying XD
+                animationController.SetTrigger("Walk");
+            MovementVector = 1; //constatly moving left - flip in Editor if needed
         }
     }
 

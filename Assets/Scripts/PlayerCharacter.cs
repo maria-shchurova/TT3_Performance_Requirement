@@ -155,7 +155,7 @@ public class PlayerCharacter : Character
 
         if (hitRay == true)
         {
-            if (hitRay.collider.CompareTag("Enemy_A"))
+            if (hitRay.collider.CompareTag("Enemy_A")) //if player is above enemy, so enemy A is in a vulnerable position
             {
                 aboveEnemy = true;
                 //takeNoDamage = true;
@@ -173,7 +173,7 @@ public class PlayerCharacter : Character
             isJumping = false;
 
         if (collision.gameObject.CompareTag("Enemy_A") && aboveEnemy)
-            collision.gameObject.GetComponent<Character>().Death();
+            collision.gameObject.GetComponent<Character>().Death(); //kill Schroom(enemy A) immediately if player is colliding it from above
 
         if (stompJump)
         {
