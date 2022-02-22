@@ -26,7 +26,7 @@ public class MainMenu : MonoBehaviour
 
     void Credits()
     {
-        SceneManager.LoadScene("CreditsScene"); //TODO
+        SceneManager.LoadScene("Credits");
     }
 
     void Quit()

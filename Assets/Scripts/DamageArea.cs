@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DamageArea : MonoBehaviour
 {
-    void Start() //TODO add vfx
+    void Start()
     {
         Destroy(gameObject, 2);
     }

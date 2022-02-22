@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackedCharacter: {fileID: 0}
   speed: 2
-  attackCooldown: 1
+  attackCooldown: 0.5
   groundCheck: {fileID: 6737379187887220950}
 --- !u!61 &1182268959
 BoxCollider2D:

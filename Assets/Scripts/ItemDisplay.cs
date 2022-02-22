@@ -14,18 +14,20 @@ public class ItemDisplay : MonoBehaviour
 
     private void Start()
     {
+        player = FindObjectOfType<PlayerCharacter>();
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
         //loading stats
-        if(SceneManager.GetActiveScene().name != "Level_0") //loading only if it is not the first level TODO clean stats in the end
+        if (SceneManager.GetActiveScene().name != "Level_0") //loading only if it is not the first level TODO clean stats in the end
         {
             CoinCount = StatsKeeper.coinCount;
             CoinCountText.text = CoinCount.ToString();
 
             UpgradeA.SetActive(StatsKeeper.Upgrade_A);
-            UpgradeB.SetActive(StatsKeeper.Upgrade_B);
-        }
+            player.UpgradeA = upgradeAbool = StatsKeeper.Upgrade_A;
 
-        player = FindObjectOfType<PlayerCharacter>();
-        SceneManager.sceneUnloaded += OnSceneUnloaded;
+            UpgradeB.SetActive(StatsKeeper.Upgrade_B);
+            player.UpgradeB = upgradeBbool = StatsKeeper.Upgrade_B;
+        }
     }
     public void UpdateItems(string type)
     {

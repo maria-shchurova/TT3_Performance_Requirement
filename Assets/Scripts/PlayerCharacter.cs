@@ -27,7 +27,8 @@ public class PlayerCharacter : Character
             else
             {
                 transform.localScale /= 1.2f; //back to initial size
-                itemDisplay.UpdateItems("UpdateA_Lost"); //remove item from UI
+                if (itemDisplay != null)
+                    itemDisplay.UpdateItems("UpdateA_Lost"); //remove item from UI
             }
         }
     }
@@ -47,7 +48,8 @@ public class PlayerCharacter : Character
             else
             {
                 transform.localScale /= 1.2f; //back to initial size
-                itemDisplay.UpdateItems("UpdateB_Lost"); //remove item from UI
+                if(itemDisplay != null)
+                    itemDisplay.UpdateItems("UpdateB_Lost"); //remove item from UI
             }
         }
     }
