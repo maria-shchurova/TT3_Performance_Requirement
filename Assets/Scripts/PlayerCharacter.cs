@@ -27,7 +27,6 @@ public class PlayerCharacter : Character
             }
             else
             {
-                transform.localScale /= 1.2f; //back to initial size
                 if (itemDisplay != null)
                     itemDisplay.UpdateItems("UpdateA_Lost"); //remove item from UI
             }
@@ -48,7 +47,6 @@ public class PlayerCharacter : Character
             }
             else
             {
-                transform.localScale /= 1.2f; //back to initial size
                 if(itemDisplay != null)
                     itemDisplay.UpdateItems("UpdateB_Lost"); //remove item from UI
             }
@@ -63,7 +61,8 @@ public class PlayerCharacter : Character
     {
         base.Start();
         Cursor.lockState = CursorLockMode.Locked;
-        if (SceneManager.GetActiveScene().name != "Level_0") //is the level is not the first, HP are loaded from StatsKeeper
+        //WARNING next 3 lines cause Death and hence reloading if levels higher than 0 are played separately. Comment them to have 5 HP every time when starting a level
+        if (SceneManager.GetActiveScene().name != "Level_0") //is the level is not the first, HP are loaded from StatsKeeper 
             HealthPoints = StatsKeeper.HealthPointsCount;
         else
             HealthPoints = 5; //otherwise 5
@@ -192,16 +191,23 @@ public class PlayerCharacter : Character
     {
         healthDisplay.RemoveHP();
         if (UpgradeA)
+        {
+            transform.localScale /= 1.2f; //back to initial size
             UpgradeA = false; //after hit upgrade is lost
+        }
+        
 
         if (UpgradeB)
+        {
+            transform.localScale /= 1.2f; //back to initial size
             UpgradeB = false;
+        }    
     }
 
     public override void Death()
     {
         base.Death();
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name); //restart current scene
+        SceneManager.LoadScene("Menu");
     }
 
     [SerializeField]private Transform ProjectileSpawnPoint;
