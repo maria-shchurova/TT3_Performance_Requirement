@@ -19,13 +19,7 @@ public class PlayerCharacter : Character
         set 
         { 
             _upgradeA = value; 
-            if(value == true)
-            {
-                transform.localScale *= 1.2f; //grows in size
-                HealthPoints += 1;            //gains a life
-                healthDisplay.AddHP(1);
-            }
-            else
+            if(value == false)
             {
                 if (itemDisplay != null)
                     itemDisplay.UpdateItems("UpdateA_Lost"); //remove item from UI
@@ -39,13 +33,7 @@ public class PlayerCharacter : Character
         set 
         { 
             _upgradeB = value;
-            if (value == true)
-            {
-                transform.localScale *= 1.2f; //grows in size
-                HealthPoints += 1;            //gains a life
-                healthDisplay.AddHP(1);
-            }
-            else
+            if (value == false)
             {
                 if(itemDisplay != null)
                     itemDisplay.UpdateItems("UpdateB_Lost"); //remove item from UI
@@ -241,5 +229,12 @@ public class PlayerCharacter : Character
                 stompJump = true; //attack is activated
             }
         }
+    }
+
+    public void Upgrade_onCollect() //this method is needet to ditinguish between collecting upgrade or setting it to true via loading from StatsKeeper.
+    {
+        transform.localScale *= 1.2f; //grows in size
+        HealthPoints += 1;            //gains a life
+        healthDisplay.AddHP(1);
     }
 }

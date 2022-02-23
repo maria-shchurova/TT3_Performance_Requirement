@@ -43,7 +43,7 @@ public class HealthDisplay : MonoBehaviour
         for(var e = 0; e < i.Length; e++)
         {
             GameObject life = Instantiate(heartPrefab);
-            life.transform.parent = gameObject.transform;
+            life.transform.SetParent(gameObject.transform);
             heartImages.Add(life);
         }
     }

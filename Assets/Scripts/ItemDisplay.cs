@@ -45,10 +45,12 @@ public class ItemDisplay : MonoBehaviour
             case "UpgradeA":
                 UpgradeA.SetActive(true);
                 player.UpgradeA = upgradeAbool = true;
+                player.Upgrade_onCollect();
                 break;
             case "UpgradeB":
                 UpgradeB.SetActive(true);
                 player.UpgradeB = upgradeBbool = true;
+                player.Upgrade_onCollect();
                 break;                        
             case "UpdateA_Lost":
                 UpgradeA.SetActive(false);
