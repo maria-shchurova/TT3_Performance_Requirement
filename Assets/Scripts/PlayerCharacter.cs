@@ -10,10 +10,13 @@ public class PlayerCharacter : Character
     private bool isJumping;
     private bool aboveEnemy;
     private float currentAttack;
+    private float sizeScale;
     /////////////////////////////////
     ///projectile
     [SerializeField] private Transform ProjectileSpawnPoint;
     [SerializeField] private Transform ProjectileRotator;
+    [SerializeField] private GameObject fireballPrefab;
+    [SerializeField] private GameObject damageAreaPrefab;
     /// //////////////////////////////
     /// </upgrade booleans>
     private bool _upgradeA = false;
@@ -27,7 +30,7 @@ public class PlayerCharacter : Character
             {
                 if (itemDisplay != null)
                     itemDisplay.UpdateItems("UpdateA_Lost"); //remove item from UI
-            }
+            } 
         }
     }
     private bool _upgradeB = false;
@@ -45,24 +48,27 @@ public class PlayerCharacter : Character
         }
     }
 
-    [SerializeField] private GameObject fireballPrefab;
-    [SerializeField] private GameObject damageAreaPrefab;
-
 
     protected override void Start()
     {
         base.Start();
         Cursor.lockState = CursorLockMode.Locked;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+
         //WARNING next 3 lines cause Death and hence reloading if levels higher than 0 are played separately. Comment them to have 5 HP every time when starting a level
         if (SceneManager.GetActiveScene().name != "Level_0") //is the level is not the first, HP are loaded from StatsKeeper 
+        {
             HealthPoints = StatsKeeper.HealthPointsCount;
+            if(StatsKeeper.PlayerCharacterScale > 0) //if there is some data saved
+                transform.localScale = new Vector3(StatsKeeper.PlayerCharacterScale, StatsKeeper.PlayerCharacterScale, 1); //loading player size if it was changed due to upgrades
+        }
         else
         {
             HealthPoints = 5; //otherwise 5
             healthDisplay.AddHP(HealthPoints);
         }
 
-        itemDisplay = GameObject.FindObjectOfType<ItemDisplay>();
+        itemDisplay = FindObjectOfType<ItemDisplay>();
 ;    }
 
     protected override void Update()
@@ -238,7 +244,12 @@ public class PlayerCharacter : Character
     public void Upgrade_onCollect() //this method is needet to ditinguish between collecting upgrade or setting it to true via loading from StatsKeeper.
     {
         transform.localScale *= 1.2f; //grows in size
+        sizeScale = transform.localScale.x; //cashing variable for statsKeeper
         HealthPoints += 1;            //gains a life
         healthDisplay.AddHP(1);
+    }
+    void OnSceneUnloaded(Scene current) //called before next level is loaded
+    {
+        StatsKeeper.PlayerCharacterScale = sizeScale;
     }
 }
