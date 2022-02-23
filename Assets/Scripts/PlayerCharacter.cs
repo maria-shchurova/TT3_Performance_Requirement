@@ -65,8 +65,10 @@ public class PlayerCharacter : Character
         if (SceneManager.GetActiveScene().name != "Level_0") //is the level is not the first, HP are loaded from StatsKeeper 
             HealthPoints = StatsKeeper.HealthPointsCount;
         else
+        {
             HealthPoints = 5; //otherwise 5
-        healthDisplay.AddHP(HealthPoints);
+            healthDisplay.AddHP(HealthPoints);
+        }
 
         itemDisplay = GameObject.FindObjectOfType<ItemDisplay>();
 ;    }
@@ -141,11 +143,11 @@ public class PlayerCharacter : Character
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             animationController.SetTrigger("Roll");
-            speed *= 1.5f;
+            speed *= 1.25f;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            speed /= 1.5f;
+            speed /= 1.25f;
         }
     }
     void DetectCollisions()
