@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     }
     void Update()
     {
-        transform.position += transform.right * Time.deltaTime * speed;
+        transform.position += transform.forward * Time.deltaTime * speed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -24,4 +24,5 @@ public class Projectile : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy_B")) 
             collision.gameObject.GetComponent<Character>().Death();
     }
+
 }

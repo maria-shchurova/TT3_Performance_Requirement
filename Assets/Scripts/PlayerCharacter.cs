@@ -10,8 +10,12 @@ public class PlayerCharacter : Character
     private bool isJumping;
     private bool aboveEnemy;
     private float currentAttack;
-/// //////////////////////////////
-/// </upgrade booleans>
+    /////////////////////////////////
+    ///projectile
+    [SerializeField] private Transform ProjectileSpawnPoint;
+    [SerializeField] private Transform ProjectileRotator;
+    /// //////////////////////////////
+    /// </upgrade booleans>
     private bool _upgradeA = false;
     public bool UpgradeA
     {
@@ -83,11 +87,13 @@ public class PlayerCharacter : Character
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
             GetComponent<SpriteRenderer>().flipX = false;
+            ProjectileRotator.eulerAngles = new Vector3 (0, 90, 0); 
         }
 
         else if (Input.GetAxisRaw("Horizontal") < 0)
         {
             GetComponent<SpriteRenderer>().flipX = true;
+            ProjectileRotator.eulerAngles = new Vector3(0, -90, 0); //flip spawn point for fireballs to face player's direction
         }
 
         //Run animation
@@ -200,13 +206,11 @@ public class PlayerCharacter : Character
         SceneManager.LoadScene("Menu");
     }
 
-    [SerializeField]private Transform ProjectileSpawnPoint;
-    [SerializeField]private float launchVelocity;
     void ShootFireball()
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            Instantiate(fireballPrefab, ProjectileSpawnPoint.position, transform.rotation);
+            Instantiate(fireballPrefab, ProjectileSpawnPoint.position, ProjectileSpawnPoint.rotation);
         }
     }
 
